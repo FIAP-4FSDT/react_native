@@ -1,7 +1,7 @@
 import { Search, X } from "lucide-react"
 import { PostCard } from "@/components/post-card"
 import { SearchBar } from "@/components/search-bar"
-import { posts } from "@/lib/data"
+import { fetchSearchPosts } from "@/lib/actions"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -11,14 +11,13 @@ interface SearchPageProps {
   }
 }
 
-export default function SearchPage({ searchParams }: SearchPageProps) {
-  const query = searchParams.q || ""
+export const dynamic = 'force-dynamic'
 
-  const filteredPosts = posts.filter((post) => {
-    const titleMatch = post.title.toLowerCase().includes(query.toLowerCase())
-    const authorMatch = post.author.name.toLowerCase().includes(query.toLowerCase())
-    return titleMatch || authorMatch
-  })
+export default async function SearchPage({ searchParams }: SearchPageProps) {
+  const query = searchParams.q?.trim() || ""
+  const filteredPosts = query
+    ? await fetchSearchPosts(query)
+    : []
 
   return (
     <div className="min-h-screen gradient-bg">
