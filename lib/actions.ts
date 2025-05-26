@@ -36,6 +36,23 @@ export async function fetchUserPosts(userEmail: string) {
   return userPosts
 }
 
+/**
+ * Fetch posts matching a search query from the API.
+ * @param query Search term to filter posts by title or content.
+ */
+export async function fetchSearchPosts(query: string) {
+  const token = await getAccessToken()
+  const url = process.env.NEXT_PUBLIC_API_URL
+    ? `${process.env.NEXT_PUBLIC_API_URL}/posts/search/${encodeURIComponent(query)}`
+    : `http://localhost:3001/api/posts/search/${encodeURIComponent(query)}`
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: { accessToken: token || '' },
+  })
+  if (!res.ok) throw new Error('Failed to fetch search results')
+  return res.json()
+}
+
 export async function likePost(postId: string) {
   // Simulate server delay
   await new Promise((resolve) => setTimeout(resolve, 300))
