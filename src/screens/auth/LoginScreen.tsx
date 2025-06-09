@@ -103,7 +103,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.email && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.email}
                 </Text>
               )}
@@ -125,7 +125,7 @@ const LoginScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.password && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.password}
                 </Text>
               )}

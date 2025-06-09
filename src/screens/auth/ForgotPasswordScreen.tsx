@@ -139,7 +139,7 @@ const ForgotPasswordScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {error && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {error}
                 </Text>
               )}

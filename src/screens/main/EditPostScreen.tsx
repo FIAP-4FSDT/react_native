@@ -199,7 +199,7 @@ const EditPostScreen: React.FC = () => {
                 maxLength={100}
               />
               {errors.title && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.title}
                 </Text>
               )}
@@ -241,7 +241,7 @@ const EditPostScreen: React.FC = () => {
                 placeholder="Digite o conteúdo do seu post aqui..."
               />
               {errors.content && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.content}
                 </Text>
               )}

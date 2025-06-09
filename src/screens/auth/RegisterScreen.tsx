@@ -131,7 +131,7 @@ const RegisterScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.nome && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.nome}
                 </Text>
               )}
@@ -149,7 +149,7 @@ const RegisterScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.email && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.email}
                 </Text>
               )}
@@ -184,7 +184,7 @@ const RegisterScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.senha && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.senha}
                 </Text>
               )}
@@ -206,7 +206,7 @@ const RegisterScreen: React.FC<Props> = ({navigation}) => {
                 style={styles.input}
               />
               {errors.confirmacao_senha && (
-                <Text variant="bodySmall" style={styles.errorText}>
+                <Text variant="bodySmall\" style={styles.errorText}>
                   {errors.confirmacao_senha}
                 </Text>
               )}

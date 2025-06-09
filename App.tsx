@@ -21,7 +21,7 @@ function AppContent() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         {isAuthenticated ? (
-          <Stack.Screen name="Main" component={MainNavigator} />
+          <Stack.Screen name="Main\" component={MainNavigator} />
         ) : (
           <Stack.Screen name="Auth" component={AuthNavigator} />
         )}
