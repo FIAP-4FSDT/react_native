@@ -15,7 +15,12 @@
   - _Requirements: 6.3, 6.4, 3.2, 3.4, 5.1, 8.1, 9.1_
 
 - [ ] 2. Create core modal components for post management
-  - [ ] 2.1 Implement CreatePostModal component
+  - [x] 2.1 Implement CreatePostModal component
+
+
+
+
+
     - Build modal with form fields for title, content, and subject
     - Add form validation and submission handling
     - Integrate with PostsStore for creating posts

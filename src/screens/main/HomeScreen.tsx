@@ -25,6 +25,8 @@ import {MainStackParamList} from '../../navigation/MainNavigator';
 import {usePostsStore, Post} from '../../stores/postsStore';
 import {useAuthStore} from '../../stores/authStore';
 import {colors} from '../../theme';
+import {CreatePostModal} from '../../components/CreatePostModal';
+import {useCreatePostModal} from '../../hooks/useCreatePostModal';
 
 type HomeScreenNavigationProp = StackNavigationProp<MainStackParamList>;
 
@@ -35,6 +37,7 @@ const HomeScreen: React.FC = () => {
 
   const {posts, loading, fetchPosts, searchPosts} = usePostsStore();
   const {user} = useAuthStore();
+  const {isOpen, openModal, closeModal} = useCreatePostModal();
 
   useEffect(() => {
     fetchPosts();
@@ -60,7 +63,7 @@ const HomeScreen: React.FC = () => {
   };
 
   const handleCreatePost = () => {
-    navigation.navigate('CreatePost');
+    openModal();
   };
 
   const renderPost = ({item}: {item: Post}) => (
@@ -160,6 +163,11 @@ const HomeScreen: React.FC = () => {
           onPress={handleCreatePost}
         />
       )}
+
+      <CreatePostModal
+        visible={isOpen}
+        onClose={closeModal}
+      />
     </SafeAreaView>
   );
 };
