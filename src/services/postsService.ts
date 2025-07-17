@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {API_BASE_URL} from '../config/api';
-import {Post} from '../stores/postsStore';
+import {Post, CreatePostData, UpdatePostData} from '../stores/postsStore';
 
 class PostsService {
   private async getAuthHeaders() {
@@ -11,19 +11,23 @@ class PostsService {
     };
   }
 
-  async fetchPosts(): Promise<Post[]> {
+  async fetchPosts(page = 1, limit = 10): Promise<Post[]> {
     try {
       const headers = await this.getAuthHeaders();
-      const response = await fetch(`${API_BASE_URL}/posts`, {
-        method: 'GET',
-        headers,
-      });
+      const response = await fetch(
+        `${API_BASE_URL}/posts?page=${page}&limit=${limit}`,
+        {
+          method: 'GET',
+          headers,
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Erro ao buscar posts: ${response.status}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      return data.posts || data;
     } catch (error) {
       if (error instanceof Error) {
         throw error;
@@ -74,7 +78,7 @@ class PostsService {
     }
   }
 
-  async createPost(postData: Omit<Post, 'id' | 'created_at' | 'author_id' | 'nome'>): Promise<number> {
+  async createPost(postData: CreatePostData): Promise<Post> {
     try {
       const headers = await this.getAuthHeaders();
       const userString = await AsyncStorage.getItem('user');
@@ -102,7 +106,7 @@ class PostsService {
     }
   }
 
-  async updatePost(id: number, postData: Partial<Post>): Promise<Post> {
+  async updatePost(id: number, postData: UpdatePostData): Promise<Post> {
     try {
       const headers = await this.getAuthHeaders();
       const response = await fetch(`${API_BASE_URL}/posts/${id}`, {
@@ -135,6 +139,48 @@ class PostsService {
       if (!response.ok) {
         throw new Error(`Erro ao excluir post: ${response.status}`);
       }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error('Erro de conexão');
+    }
+  }
+
+  async likePost(postId: number): Promise<{likes: number}> {
+    try {
+      const headers = await this.getAuthHeaders();
+      const response = await fetch(`${API_BASE_URL}/posts/${postId}/like`, {
+        method: 'POST',
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao curtir post: ${response.status}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      if (error instanceof Error) {
+        throw error;
+      }
+      throw new Error('Erro de conexão');
+    }
+  }
+
+  async unlikePost(postId: number): Promise<{likes: number}> {
+    try {
+      const headers = await this.getAuthHeaders();
+      const response = await fetch(`${API_BASE_URL}/posts/${postId}/unlike`, {
+        method: 'DELETE',
+        headers,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao descurtir post: ${response.status}`);
+      }
+
+      return await response.json();
     } catch (error) {
       if (error instanceof Error) {
         throw error;
